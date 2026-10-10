@@ -31,6 +31,7 @@ button.primary{background:var(--fg);color:var(--bg);font-size:16px;padding:12px 
 .code{display:inline-block;margin-top:8px;font-size:15px;letter-spacing:.04em;border-bottom:1px dashed var(--fg);cursor:pointer}
 .links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px}
 .links .btn.main{background:var(--fg);color:var(--bg)}
+.howto{max-width:520px;margin:12px auto 0;font-size:13px;color:#555;line-height:1.6;background:#f5f5f5;padding:10px 14px;text-align:left}
 .note{margin:22px auto 0;max-width:560px;border:1px dashed var(--fg);padding:10px 14px;font-size:14px;text-align:left}
 .label{font-size:12px;letter-spacing:.2em;color:var(--muted);margin:36px 0 12px}
 .label::before,.label::after{content:"";display:inline-block;width:28px;height:1px;background:var(--line);vertical-align:middle;margin:0 12px}
@@ -71,7 +72,7 @@ html,body{overflow-x:hidden}
   </form>
   <div class="nav"><button id="prev">← 이전</button><button id="all">유형별 목록</button><button id="wrongs">틀린 문제</button><button id="next">다음 →</button></div>
   <div id="out"></div>
-  <div class="foot">문제와 해설의 저작권은 EBS에 있습니다. 개인 학습용으로만 쓰세요.<br>강의 버튼은 EBS 푸리봇(문항코드 검색)으로 연결됩니다.</div>
+  <div class="foot">문제와 해설의 저작권은 EBS에 있습니다. 개인 학습용으로만 쓰세요.<br>강의 버튼은 EBSi 문항코드 검색으로 연결됩니다.</div>
 </div>
 <div class="toast" id="toast"></div>
 <script src="data.js?v=1"></script>
@@ -125,7 +126,8 @@ function show(i, keep){
     <div><button class="wrong-btn ${wrong.has(d.n) ? 'on' : ''}" onclick="toggleWrong()">${wrong.has(d.n) ? '✓ 틀린 문제로 저장됨 (해제)' : '✗ 틀렸어요 · 저장'}</button></div>
     <div class="src">${esc(d.src1)}<br>${esc(d.src2)}${d.level ? ' · ' + esc(d.level) : ''}</div>
     <div class="code" onclick="copyCode('${d.code}')">문항코드 ${d.code}</div>
-    <div class="links"><a class="btn main" href="${bot(d.code)}" target="_blank" rel="noopener">푸리봇 강의·해설 보기</a><a class="btn" href="${ebsi(d.code)}" target="_blank" rel="noopener">EBSi에서 검색</a></div>
+    <div class="links"><a class="btn main" href="${ebsi(d.code)}" target="_blank" rel="noopener">EBS 강의·해설 보기</a><button class="btn" onclick="copyCode('${d.code}')">문항코드 복사</button></div>
+    <div class="howto">EBSi가 열리면 검색창의 <b>돋보기(🔍)를 한 번</b> 누르세요. 오른쪽에 푸리봇이 열리며 이 문제의 해설보기와 강의가 나와요.<br>EBSi 앱에서는 검색창에 문항코드 <b>${d.code}</b>를 입력해도 돼요.</div>
     ${d.note ? `<div class="note"><b>범위 메모</b> · ${esc(d.note)}</div>` : ''}
     <div class="label">EBS 해설</div>
     <img class="sol" src="sol/${d.code}.jpg" alt="${pad(d.n)}번 해설" loading="lazy">
